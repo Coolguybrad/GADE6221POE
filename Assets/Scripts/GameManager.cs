@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,12 +7,16 @@ public class GameManager : MonoBehaviour
     private AudioManager aManager;
     public float obstacleSpawnTime = 5;
 
-    public GameObject [] obstacleArr;
+    public GameObject[] obstacleArr;
     public GameObject obstacleSpawnRight;
     public GameObject obstacleSpawnMiddle;
     public GameObject obstacleSpawnLeft;
 
-    
+    public GameObject Player;
+
+    private bool isPaused = false;
+
+
 
     private void Awake()
     {
@@ -60,42 +62,72 @@ public class GameManager : MonoBehaviour
 
     //}
 
-    private void spawnWave() 
+    private void spawnWave()
     {
         int rndObstacle = Random.Range(0, obstacleArr.Length);
         int rndSpawn = Random.Range(0, 3);
-        if (rndSpawn == 0)
+
+        //Player.GetComponent<Score>().score;
+        if (rndObstacle == 2)
         {
-            Instantiate(obstacleArr[rndObstacle], obstacleSpawnRight.transform);
-            
+            Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
+        }
+        else if (rndSpawn == 0)
+        {
+
+            Instantiate(obstacleArr[rndObstacle], obstacleSpawnLeft.transform);
+
+
+
         }
         else if (rndSpawn == 1)
         {
+
+
             Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
-            
+
+
+
         }
         else if (rndSpawn == 2)
         {
 
             Instantiate(obstacleArr[rndObstacle], obstacleSpawnRight.transform);
-            
+
+
+
         }
     }
     // Update is called once per frame
     void Update()
     {
-        //StartCoroutine("spawnWave");
 
+        //StartCoroutine("spawnWave");
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (isPaused)
+            {
+                Time.timeScale = 1;
+                isPaused = false;
+            }
+            else
+            {
+                Time.timeScale = 0;
+                isPaused = true;
+            }
+
+        }
 
     }
 
-    
 
-    
+
+
     public void playAudio()
     {
+
         aManager.ReturnAudio();
     }
 
-    
+
 }
