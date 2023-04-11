@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class CharacterCollision : MonoBehaviour
 {
-    private GameObject ui = GameObject.Find("UI");
+    [SerializeField]
+    public GameObject ui;
     // Start is called before the first frame update
     void Start()
     {

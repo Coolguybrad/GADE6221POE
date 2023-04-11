@@ -22,10 +22,11 @@ public class PlayerController : MonoBehaviour
     public bool gotPickup = false;
 
 
-    
+
     void Start()
     {
         player.transform.position.Set(player.transform.position.x, lLane.transform.position.y, player.transform.position.z);
+
     }
 
     // Update is called once per frame
@@ -69,8 +70,8 @@ public class PlayerController : MonoBehaviour
             checkLane();
         }
 
-        
-        
+
+
     }
 
     private void FixedUpdate()
@@ -81,16 +82,21 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        rb.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
+        if (rb.transform.position.y < 0.47f)
+        {
+            rb.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
+        }
+
     }
 
-    private void checkLane() 
-    { 
-    if (lane == 0)
+    private void checkLane()
+    {
+        if (lane == 0)
         {
-            
+
             player.transform.position = lLane.transform.position;
             //player.transform.position.Set(lLaneX, playerY, lLaneZ);
+            GameManager.instance.playAudio();
         }
         else if (lane == 1)
         {
@@ -104,7 +110,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+
 
 
 
