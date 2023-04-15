@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private Rigidbody rb;
+    private Rigidbody rb; 
     [SerializeField]
     private GameObject player;
     [SerializeField]
@@ -18,56 +18,61 @@ public class PlayerController : MonoBehaviour
 
     private int lane = 1; //0 = left lane 1 = middle 2 = right
 
-    [SerializeField]
+    
     public bool gotPickup = false;
 
 
 
     void Start()
     {
-        player.transform.position.Set(player.transform.position.x, lLane.transform.position.y, player.transform.position.z);
+        //player.transform.position.Set(player.transform.position.x, lLane.transform.position.y, player.transform.position.z); 
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gotPickup)
+        if (gotPickup) //if the player has a pickup displays shield equipped (to be changed to accomodate other pickups)
         {
             GameObject.Find("UI").GetComponent<UIInteraction>().txtPickup.text = "Shield Equipped";
         }
-        else
+        else //if player doesnt have a pickup text is set to nothing
         {
             GameObject.Find("UI").GetComponent<UIInteraction>().txtPickup.text = "";
         }
 
         //playerY = player.transform.position.y;
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow)) //when up arrow is pressed calls jump
         {
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow))//when down arrow is pressed calls down
         {
-            lane--;
-            if (lane < 0)
+            Down();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))//when left arrow is pressed
+        {
+            lane--; //lane is decremented
+            if (lane < 0) //if lane is lower that 0 set it back to 0
             {
                 lane = 0;
             }
-            print(lane);
+            //print(lane);
 
-            checkLane();
+            checkLane(); //calls checkLane
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))//when right arrow is pressed
         {
-            lane++;
-            if (lane > 2)
+            lane++; //lane is incremented
+            if (lane > 2) //if lane is greater than 2 set it back to 2
             {
                 lane = 2;
             }
 
-            print(lane);
-            checkLane();
+           // print(lane);
+            checkLane(); //calls checkLane
         }
 
 
@@ -80,33 +85,40 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void Down()
+    {
+        rb.AddForce(new Vector3(0, -jumpHeight*2, 0), ForceMode.Impulse); //puts a downward force on the player to move them down quicker
+    }
+
     private void Jump()
     {
-        if (rb.transform.position.y < 0.47f)
+        if (rb.transform.position.y < 0.47f)//prevents player from jumping while in the air
         {
-            rb.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);//puts an upward force on the player to make them jump
         }
 
     }
 
     private void checkLane()
     {
-        if (lane == 0)
+        if (lane == 0) //if lane is 0 the player is put in the same position as the left lane and an audio is played
         {
 
             player.transform.position = lLane.transform.position;
             //player.transform.position.Set(lLaneX, playerY, lLaneZ);
             GameManager.instance.playAudio();
         }
-        else if (lane == 1)
+        else if (lane == 1) //if lane is 1 the player is put in the same position as the middle lane and an audio is played
         {
             //player.transform.position.Set(mLaneX, playerY, mLaneZ);
             player.transform.position = mLane.transform.position;
+            GameManager.instance.playAudio();
         }
-        else
+        else //if lane equals anything else the player is put in the same position as the right lane and an audio is played
         {
             //player.transform.position.Set(rLaneX, playerY, rLaneZ);
             player.transform.position = rLane.transform.position;
+            GameManager.instance.playAudio();
         }
     }
 

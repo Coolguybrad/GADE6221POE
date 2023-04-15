@@ -25,11 +25,11 @@ public class Pickup : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (pickup.transform.position.z < -50f)
+        if (pickup.transform.position.z < -50f) //once the pickup has passed -50 on the z axis
         {
-            Destroy(pickup);
+            Destroy(pickup); //pickup is destroyed
         }
-        pickup.transform.Translate(Vector3.back * speed * Time.fixedDeltaTime);
+        pickup.transform.Translate(Vector3.back * speed * Time.fixedDeltaTime); //moves the pickup toward the player on the z axis
 
     }
 }

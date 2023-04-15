@@ -23,15 +23,15 @@ public class UIInteraction : MonoBehaviour
 
     private void Awake()
     {
-        btnRestart.onClick.AddListener(restart);
+        btnRestart.onClick.AddListener(restart); //whenever the restart button is pressed restart is called
     }
 
     // Update is called once per frame
     void Update()
     {
-        txtScore.text = "Score: " + player.GetComponent<Score>().score;
+        txtScore.text = "Score: " + player.GetComponent<Score>().score; //updates the score on the onscreen gui
         //finalScore = player.GetComponent<Score>().score;
-        if (player.transform.position.y < 0f)
+        if (player.transform.position.y < 0f) //if the player is below 0 on the y position that means they have died and a final score will be displayed
         {
             txtFinalScore.text = "Final Score: " + player.GetComponent<Score>().score;
         }
@@ -41,7 +41,7 @@ public class UIInteraction : MonoBehaviour
 
     private void restart() 
     {
-        Time.timeScale = 1;
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1; //sets time back to normal
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name); //scene is restarted
     }
 }

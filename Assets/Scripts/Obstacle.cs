@@ -6,7 +6,7 @@ public class Obstacle : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private float speed = 20f;
+    private float speed = 20f; //speed of the obstacle
     [SerializeField]
     public GameObject obstacle;
     
@@ -29,12 +29,12 @@ public class Obstacle : MonoBehaviour
         //{
         //    
         //}
-        if (obstacle.transform.position.z < -41f)
+        if (obstacle.transform.position.z < -41f) //once the obstacle has passed -41 on the z axis
         {
-            GameObject.Find("Player").GetComponent<Score>().score++;
-            Destroy(obstacle);
+            GameObject.Find("Player").GetComponent<Score>().score++; //players score is increased
+            Destroy(obstacle); //obstacle is destroyed
         }
-        obstacle.transform.Translate(Vector3.back * speed * Time.fixedDeltaTime);
+        obstacle.transform.Translate(Vector3.back * speed * Time.fixedDeltaTime);//moves the obstacles in the players z direction at the speed set above
         
     }
 

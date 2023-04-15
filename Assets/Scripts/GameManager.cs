@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance == null) //if else makes sure theres only one instance of the game manager
         {
             instance = this;
         }
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
 
         //StartCoroutine("spawnWave");
-        InvokeRepeating("spawnWave", obstacleSpawnTime, obstacleSpawnTime);
+        InvokeRepeating("spawnWave", obstacleSpawnTime, obstacleSpawnTime); //calls spawnWave method at the set intervals of obstacleSpawnTime
     }
 
 
@@ -64,23 +64,20 @@ public class GameManager : MonoBehaviour
 
     private void spawnWave()
     {
-        int rndObstacle = Random.Range(0, obstacleArr.Length);
-        int rndSpawn = Random.Range(0, 3);
+        int rndObstacle = Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
+        int rndSpawn = Random.Range(0, 3); //randomizes a lane for the obstacles to spawn in
 
         //Player.GetComponent<Score>().score;
-        if (rndObstacle == 2)
+        if (rndObstacle == 2) //if the random obstacle is the long obstacle it will only spawn in the middle lane
         {
             Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
         }
-        else if (rndSpawn == 0)
+        else if (rndSpawn == 0)//makes sure random obstacle spawns in left lane
         {
-
             Instantiate(obstacleArr[rndObstacle], obstacleSpawnLeft.transform);
 
-
-
         }
-        else if (rndSpawn == 1)
+        else if (rndSpawn == 1)//makes sure random obstacle spawns in middle lane
         {
 
 
@@ -89,7 +86,7 @@ public class GameManager : MonoBehaviour
 
 
         }
-        else if (rndSpawn == 2)
+        else if (rndSpawn == 2)//makes sure random obstacle spawns in right lane
         {
 
             Instantiate(obstacleArr[rndObstacle], obstacleSpawnRight.transform);
@@ -103,14 +100,14 @@ public class GameManager : MonoBehaviour
     {
 
         //StartCoroutine("spawnWave");
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q)) //when q is pressed down the time scale is set to 0
         {
-            if (isPaused)
+            if (isPaused) //checks if the game is paused if it is it unpauses
             {
                 Time.timeScale = 1;
                 isPaused = false;
             }
-            else
+            else  //checks if the game is not paused it pauses the game
             {
                 Time.timeScale = 0;
                 isPaused = true;
