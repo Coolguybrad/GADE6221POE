@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CharacterCollision : MonoBehaviour
 {
-    [SerializeField]
+
     public GameObject ui;
     // Start is called before the first frame update
     void Start()
@@ -21,10 +21,10 @@ public class CharacterCollision : MonoBehaviour
 
         if (other.gameObject.tag == "Obstacle" && !this.gameObject.GetComponent<PlayerController>().gotPickup)
         {
-
-            Destroy(this.gameObject);
+            
+            this.gameObject.transform.position = new Vector3(0f, -10f, 0f);
             Time.timeScale = 0;
-            //ui.GetComponent<UIInteraction>().txtFinalScore.text = "Final Score: " + ui.GetComponent<UIInteraction>().player.GetComponent<Score>().score;
+
 
         }
         else if (other.gameObject.tag == "Obstacle" && this.gameObject.GetComponent<PlayerController>().gotPickup)

@@ -9,13 +9,13 @@ using UnityEngine.SceneManagement;
 public class UIInteraction : MonoBehaviour
 {
     // Start is called before the first frame update
-    
-    public GameObject player;
 
+    public GameObject player;
     public TMP_Text txtScore;
     public TMP_Text txtPickup;
     public Button btnRestart;
     public TMP_Text txtFinalScore;
+    public int finalScore;
     void Start()
     {
         
@@ -30,7 +30,11 @@ public class UIInteraction : MonoBehaviour
     void Update()
     {
         txtScore.text = "Score: " + player.GetComponent<Score>().score;
-        
+        //finalScore = player.GetComponent<Score>().score;
+        if (player.transform.position.y < 0f)
+        {
+            txtFinalScore.text = "Final Score: " + player.GetComponent<Score>().score;
+        }
         //.text = "Score: " + player.GetComponent<Score>().score;
 
     }
