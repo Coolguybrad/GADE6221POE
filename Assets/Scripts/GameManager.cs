@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         int rndSpawn = Random.Range(0, 3); //randomizes a lane for the obstacles to spawn in
 
         //Player.GetComponent<Score>().score;
-        if (rndObstacle == 2) //if the random obstacle is the long obstacle it will only spawn in the middle lane
+        if (rndObstacle == 2 || rndObstacle == 4) //if the random obstacle is the long obstacle it will only spawn in the middle lane
         {
             Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
         }
@@ -104,11 +104,13 @@ public class GameManager : MonoBehaviour
         {
             if (isPaused) //checks if the game is paused if it is it unpauses
             {
+                GameObject.Find("UI").GetComponent<UIInteraction>().txtControls.text = "";
                 Time.timeScale = 1;
                 isPaused = false;
             }
             else  //checks if the game is not paused it pauses the game
             {
+                GameObject.Find("UI").GetComponent<UIInteraction>().txtControls.text = "Up arrow - jump\nDown arrow - fast fall\nLeft arrow - move left\nRight arrow - move right";
                 Time.timeScale = 0;
                 isPaused = true;
             }

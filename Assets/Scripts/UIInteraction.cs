@@ -15,7 +15,7 @@ public class UIInteraction : MonoBehaviour
     public TMP_Text txtPickup;
     public Button btnRestart;
     public TMP_Text txtFinalScore;
-    public int finalScore;
+    public TMP_Text txtControls;
     void Start()
     {
         
