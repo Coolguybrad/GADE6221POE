@@ -31,7 +31,7 @@ public class UIInteraction : MonoBehaviour
     {
         txtScore.text = "Score: " + player.GetComponent<Score>().score; //updates the score on the onscreen gui
         //finalScore = player.GetComponent<Score>().score;
-        if (player.transform.position.y < 0f) //if the player is below 0 on the y position that means they have died and a final score will be displayed
+        if (player.transform.position.y < -5f) //if the player is below 0 on the y position that means they have died and a final score will be displayed
         {
             txtFinalScore.text = "Final Score: " + player.GetComponent<Score>().score;
         }
