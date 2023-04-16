@@ -883,6 +883,7 @@ MonoBehaviour:
   - {fileID: 9117050576720985420, guid: bac45dcdb40ed0c4faf795f8344b8e2d, type: 3}
   - {fileID: 263280746696527444, guid: df3387c246419b04484a18f7e81b624c, type: 3}
   - {fileID: 7186610456093578803, guid: 63ea2db6a790ca449ac2bf71dac21aed, type: 3}
+  - {fileID: 1177680039601434199, guid: a0dc8a369f06d344883a6c4a920504ed, type: 3}
   obstacleSpawnRight: {fileID: 1036556930}
   obstacleSpawnMiddle: {fileID: 838913440}
   obstacleSpawnLeft: {fileID: 1739652143}
