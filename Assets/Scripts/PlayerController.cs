@@ -107,18 +107,21 @@ public class PlayerController : MonoBehaviour
             player.transform.position = lLane.transform.position;
             //player.transform.position.Set(lLaneX, playerY, lLaneZ);
             GameManager.instance.playAudio();
+            
         }
         else if (lane == 1) //if lane is 1 the player is put in the same position as the middle lane and an audio is played
         {
             //player.transform.position.Set(mLaneX, playerY, mLaneZ);
             player.transform.position = mLane.transform.position;
             GameManager.instance.playAudio();
+            
         }
         else //if lane equals anything else the player is put in the same position as the right lane and an audio is played
         {
             //player.transform.position.Set(rLaneX, playerY, rLaneZ);
             player.transform.position = rLane.transform.position;
             GameManager.instance.playAudio();
+            
         }
     }
 

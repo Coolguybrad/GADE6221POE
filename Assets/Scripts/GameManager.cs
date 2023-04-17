@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     private AudioManager aManager;
     public float obstacleSpawnTime = 5;
 
+    public AudioSource _audio;
+    public AudioClip _clip;
     public GameObject[] obstacleArr;
     public GameObject obstacleSpawnRight;
     public GameObject obstacleSpawnMiddle;
@@ -124,7 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void playAudio()
     {
-
+        
         aManager.ReturnAudio();
     }
 
