@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private Rigidbody rb; 
+    private Rigidbody rb;
     [SerializeField]
     private GameObject player;
     [SerializeField]
@@ -18,8 +18,10 @@ public class PlayerController : MonoBehaviour
 
     private int lane = 1; //0 = left lane 1 = middle 2 = right
 
-    
+
     public bool gotPickup = false;
+    public Pickup.pickupType currentPickup;
+
 
 
 
@@ -29,12 +31,26 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    
+
     // Update is called once per frame
     void Update()
     {
         if (gotPickup) //if the player has a pickup displays shield equipped (to be changed to accomodate other pickups)
         {
-            GameObject.Find("UI").GetComponent<UIInteraction>().txtPickup.text = "Shield Equipped";
+            if (currentPickup == Pickup.pickupType.Shield)
+            {
+                GameObject.Find("UI").GetComponent<UIInteraction>().txtPickup.text = "Shield Equipped";
+            }
+            else if (currentPickup == Pickup.pickupType.Pointboost)
+            {
+                GameObject.Find("UI").GetComponent<UIInteraction>().txtPickup.text = "2x boost";
+            }
+            else if (currentPickup == Pickup.pickupType.Moonboots)
+            {
+                GameObject.Find("UI").GetComponent<UIInteraction>().txtPickup.text = "Moonboots Equipped";
+            }
+
         }
         else //if player doesnt have a pickup text is set to nothing
         {
@@ -71,7 +87,7 @@ public class PlayerController : MonoBehaviour
                 lane = 2;
             }
 
-           // print(lane);
+            // print(lane);
             checkLane(); //calls checkLane
         }
 
@@ -87,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     private void Down()
     {
-        rb.AddForce(new Vector3(0, -jumpHeight*2, 0), ForceMode.Impulse); //puts a downward force on the player to move them down quicker
+        rb.AddForce(new Vector3(0, -jumpHeight * 2, 0), ForceMode.Impulse); //puts a downward force on the player to move them down quicker
     }
 
     private void Jump()
@@ -107,27 +123,27 @@ public class PlayerController : MonoBehaviour
             player.transform.position = lLane.transform.position;
             //player.transform.position.Set(lLaneX, playerY, lLaneZ);
             GameManager.instance.playAudio();
-            
+
         }
         else if (lane == 1) //if lane is 1 the player is put in the same position as the middle lane and an audio is played
         {
             //player.transform.position.Set(mLaneX, playerY, mLaneZ);
             player.transform.position = mLane.transform.position;
             GameManager.instance.playAudio();
-            
+
         }
         else //if lane equals anything else the player is put in the same position as the right lane and an audio is played
         {
             //player.transform.position.Set(rLaneX, playerY, rLaneZ);
             player.transform.position = rLane.transform.position;
             GameManager.instance.playAudio();
-            
+
         }
     }
 
 
 
 
-
+    
 
 }

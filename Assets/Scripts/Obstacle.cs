@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
@@ -9,18 +7,18 @@ public class Obstacle : MonoBehaviour
     private float speed = 20f; //speed of the obstacle
     [SerializeField]
     public GameObject obstacle;
-    
-   
+
+
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -31,14 +29,24 @@ public class Obstacle : MonoBehaviour
         //}
         if (obstacle.transform.position.z < -41f) //once the obstacle has passed -41 on the z axis
         {
-            GameObject.Find("Player").GetComponent<Score>().score++; //players score is increased
-            Destroy(obstacle); //obstacle is destroyed
+            if (GameObject.Find("Player").GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Pointboost)
+            {
+                GameObject.Find("Player").GetComponent<Score>().score++;//players score is increased
+                GameObject.Find("Player").GetComponent<Score>().score++;
+                Destroy(obstacle); //obstacle is destroyed
+            }
+            else
+            {
+                GameObject.Find("Player").GetComponent<Score>().score++; //players score is increased
+                Destroy(obstacle); //obstacle is destroyed
+            }
+
         }
         obstacle.transform.Translate(Vector3.back * speed * Time.fixedDeltaTime);//moves the obstacles in the players z direction at the speed set above
-        
+
     }
 
-    
+
 
 
 

@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   pickup: {fileID: 5131663093087591935}
+  pU: 1
 --- !u!65 &2476404011662062816
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class UIInteraction : MonoBehaviour
     public Button btnRestart;
     public TMP_Text txtFinalScore;
     public TMP_Text txtControls;
+    public Button btnQuit;
     void Start()
     {
         
@@ -24,6 +25,7 @@ public class UIInteraction : MonoBehaviour
     private void Awake()
     {
         btnRestart.onClick.AddListener(restart); //whenever the restart button is pressed restart is called
+        btnQuit.onClick.AddListener(close);
     }
 
     // Update is called once per frame
@@ -38,10 +40,17 @@ public class UIInteraction : MonoBehaviour
         //.text = "Score: " + player.GetComponent<Score>().score;
 
     }
+    private void close() 
+    {
+        Application.Quit();
+    }
+
 
     private void restart() 
     {
         Time.timeScale = 1; //sets time back to normal
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name); //scene is restarted
     }
+
+    
 }

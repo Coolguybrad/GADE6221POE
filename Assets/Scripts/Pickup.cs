@@ -10,7 +10,8 @@ public class Pickup : MonoBehaviour
     [SerializeField]
     public GameObject pickup;
 
-
+    public enum pickupType {Nothing, Shield, Pointboost, Moonboots};
+    public pickupType pU;
 
     void Start()
     {
