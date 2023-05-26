@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,7 +18,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumpHeight;
 
+
+
     private int lane = 1; //0 = left lane 1 = middle 2 = right
+
+    //Attempt 1 Lerping
+    //public float fistMoveDist = 20f;
+    //private Vector3 fistStartPos;
+    //private Vector3 fistEndPos;
+    //private float duration = 10f;
+    //private float elapsedTime;
+
+    //public float punchDist = 5f;
+    //public float punchSpeed = 2f;
+    //private Vector3 startPosition;
+    //private Vector3 endPosition;
+    //private float startTime;
 
 
     public bool gotPickup = false;
@@ -27,15 +44,20 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        
         //player.transform.position.Set(player.transform.position.x, lLane.transform.position.y, player.transform.position.z); 
-
+        //startPosition = this.gameObject.transform.GetChild(1).position;
+        //endPosition = startPosition + Vector3.right * punchDist;
+        //startTime = Time.time;
+        //endPosition = rLane.transform.position;
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
     {
+
         if (gotPickup) //if the player has a pickup displays shield equipped (to be changed to accomodate other pickups)
         {
             if (currentPickup == Pickup.pickupType.Shield)
@@ -91,6 +113,25 @@ public class PlayerController : MonoBehaviour
             checkLane(); //calls checkLane
         }
 
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    //Attempt 1 Lerping
+        //    //fistStartPos = this.gameObject.transform.GetChild(1).position;
+        //    //fistEndPos = new Vector3(this.gameObject.transform.GetChild(1).position.x + fistMoveDist, this.gameObject.transform.GetChild(1).position.y, this.gameObject.transform.GetChild(1).position.z);
+        //    //elapsedTime += Time.deltaTime;
+        //    //float percentageDone = elapsedTime/duration;
+
+        //    //this.gameObject.transform.GetChild(1).transform.position = Vector3.Lerp(fistStartPos, fistEndPos, percentageDone);
+
+        //    //float t = (Time.time - startTime) / punchDuration;
+        //    startPosition = this.gameObject.transform.GetChild(1).position;
+        //    float step = punchSpeed * Time.fixedDeltaTime;
+        //    this.gameObject.transform.GetChild(1).transform.position = Vector3.MoveTowards(startPosition, endPosition, step);
+        //    //this.gameObject.transform.GetChild(1).transform.position = Vector3.Lerp(startPosition, rLane.transform.position, t);
+
+
+        //}
+
 
 
     }
@@ -144,6 +185,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-    
+
 
 }

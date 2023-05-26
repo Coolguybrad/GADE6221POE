@@ -53,13 +53,19 @@ public class CharacterCollision : MonoBehaviour
         {
 
             this.gameObject.GetComponent<PlayerController>().gotPickup = true; //sets player's got pickup to true
+            //if (this.gameObject.GetComponent<PlayerController>().currentPickup != Pickup.pickupType.Moonboots)
+            //{
+            //    this.gameObject.GetComponent<Rigidbody>().mass = 1f;
+            //}
             if (other.gameObject.GetComponent<Pickup>().pU == Pickup.pickupType.Shield)
             {
+                this.gameObject.GetComponent<Rigidbody>().mass = 1f;
                 StartCoroutine(shield());
                 
             }
             else if (other.gameObject.GetComponent<Pickup>().pU == Pickup.pickupType.Pointboost)
             {
+                this.gameObject.GetComponent<Rigidbody>().mass = 1f;
                 StartCoroutine(pointBoost());
             }
             else if (other.gameObject.GetComponent<Pickup>().pU == Pickup.pickupType.Moonboots)
@@ -83,7 +89,7 @@ public class CharacterCollision : MonoBehaviour
     IEnumerator pointBoost()
     {
         this.gameObject.GetComponent<PlayerController>().currentPickup = Pickup.pickupType.Pointboost;
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(20);
         this.gameObject.GetComponent<PlayerController>().currentPickup = Pickup.pickupType.Nothing;
         this.gameObject.GetComponent<PlayerController>().gotPickup = false;
     }
@@ -91,7 +97,9 @@ public class CharacterCollision : MonoBehaviour
     IEnumerator moonBoots()
     {
         this.gameObject.GetComponent<PlayerController>().currentPickup = Pickup.pickupType.Moonboots;
-        yield return new WaitForSeconds(10);
+        this.gameObject.GetComponent<Rigidbody>().mass = 0.5f;
+        yield return new WaitForSeconds(15);
+        this.gameObject.GetComponent<Rigidbody>().mass = 1f;
         this.gameObject.GetComponent<PlayerController>().currentPickup = Pickup.pickupType.Nothing;
         this.gameObject.GetComponent<PlayerController>().gotPickup = false;
     }

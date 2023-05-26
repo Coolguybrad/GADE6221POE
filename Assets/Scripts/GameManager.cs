@@ -5,7 +5,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public static GameManager instance;
     private AudioManager aManager;
-    public float obstacleSpawnTime = 5;
+    public float obstacleSpawnTime = 1;
+    public GameObject boss;
+    public int bossSpawnThreshhold = 20;
+
 
     public AudioSource _audio;
     public AudioClip _clip;
@@ -13,6 +16,10 @@ public class GameManager : MonoBehaviour
     public GameObject obstacleSpawnRight;
     public GameObject obstacleSpawnMiddle;
     public GameObject obstacleSpawnLeft;
+
+    public float speed = 0.5f;
+    public float distance = 1f;
+    private float startY;
 
     public GameObject Player;
 
@@ -37,7 +44,9 @@ public class GameManager : MonoBehaviour
     {
 
         //StartCoroutine("spawnWave");
-        InvokeRepeating("spawnWave", obstacleSpawnTime, obstacleSpawnTime); //calls spawnWave method at the set intervals of obstacleSpawnTime
+        startY = boss.transform.position.y;
+        //InvokeRepeating("spawnWave", obstacleSpawnTime, obstacleSpawnTime); //calls spawnWave method at the set intervals of obstacleSpawnTime
+        Invoke("spawnWave", obstacleSpawnTime);
     }
 
 
@@ -66,41 +75,79 @@ public class GameManager : MonoBehaviour
 
     private void spawnWave()
     {
-        int rndObstacle = Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
-        int rndSpawn = Random.Range(0, 3); //randomizes a lane for the obstacles to spawn in
-
-        //Player.GetComponent<Score>().score;
-        if (rndObstacle == 2 || rndObstacle == 4) //if the random obstacle is the long obstacle it will only spawn in the middle lane
+        if (Player.GetComponent<Score>().score < bossSpawnThreshhold || boss.GetComponent<BossMechanics>().isDead)
         {
-            Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
+            obstacleSpawnTime = 1;
+            int rndObstacle = Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
+            int rndSpawn = Random.Range(0, 3); //randomizes a lane for the obstacles to spawn in
+
+            //Player.GetComponent<Score>().score;
+            if (rndObstacle == 2 || rndObstacle == 4) //if the random obstacle is the long obstacle it will only spawn in the middle lane
+            {
+                Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
+            }
+            else if (rndSpawn == 0)//makes sure random obstacle spawns in left lane
+            {
+                Instantiate(obstacleArr[rndObstacle], obstacleSpawnLeft.transform);
+
+            }
+            else if (rndSpawn == 1)//makes sure random obstacle spawns in middle lane
+            {
+
+
+                Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
+
+
+
+            }
+            else if (rndSpawn == 2)//makes sure random obstacle spawns in right lane
+            {
+
+                Instantiate(obstacleArr[rndObstacle], obstacleSpawnRight.transform);
+
+
+
+            }
         }
-        else if (rndSpawn == 0)//makes sure random obstacle spawns in left lane
+        else if (Player.GetComponent<Score>().score >= bossSpawnThreshhold)
         {
-            Instantiate(obstacleArr[rndObstacle], obstacleSpawnLeft.transform);
-
+            obstacleSpawnTime = 3;
+            Instantiate(obstacleArr[9], obstacleSpawnMiddle.transform);
         }
-        else if (rndSpawn == 1)//makes sure random obstacle spawns in middle lane
-        {
+        Invoke("spawnWave", obstacleSpawnTime);
 
-
-            Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
-
-
-
-        }
-        else if (rndSpawn == 2)//makes sure random obstacle spawns in right lane
-        {
-
-            Instantiate(obstacleArr[rndObstacle], obstacleSpawnRight.transform);
-
-
-
-        }
     }
     // Update is called once per frame
     void Update()
     {
+        if (!boss.GetComponent<BossMechanics>().isSpawned && Player.GetComponent<Score>().score > bossSpawnThreshhold)
+        {
+            if (boss.transform.position.y < 1)
+            {
+                boss.transform.Translate(Vector3.up * speed * Time.fixedDeltaTime);
 
+                //boss.transform.position = new Vector3(transform.position.x, startY + Mathf.PingPong(Time.time * speed, distance), transform.position.z);
+
+            }
+            else
+            {
+                boss.GetComponent<BossMechanics>().isSpawned = true;
+            }
+
+        }
+
+        if (boss.GetComponent<BossMechanics>().isDead)
+        {
+            if (boss.transform.position.y > -9)
+            {
+                boss.transform.Translate(Vector3.up * -speed * Time.fixedDeltaTime);
+            }
+            else
+            {
+                boss.GetComponent<BossMechanics>().isSpawned = false;
+            }
+
+        }
         //StartCoroutine("spawnWave");
         if (Input.GetKeyDown(KeyCode.Q)) //when q is pressed down the time scale is set to 0
         {
@@ -126,7 +173,7 @@ public class GameManager : MonoBehaviour
 
     public void playAudio()
     {
-        
+
         aManager.ReturnAudio();
     }
 

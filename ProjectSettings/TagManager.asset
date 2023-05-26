@@ -7,6 +7,7 @@ TagManager:
   - Obstacle
   - Destroyer
   - Pickup
+  - Boss
   layers:
   - Default
   - TransparentFX

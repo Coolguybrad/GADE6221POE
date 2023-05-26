@@ -22,7 +22,6 @@ public class AudioManager : MonoBehaviour
     {
         //for later use when audio is implemented
         // (Instant Transmission sound)
-        print("Audio is playing");
         _audio.PlayOneShot(_clip);
     }
 }
