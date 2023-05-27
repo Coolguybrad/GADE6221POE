@@ -4,6 +4,7 @@ using UnityEngine;
 public class BossMechanics : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject bossMainBody;
     public GameObject rFist;
     public int rFistHP = 10;
     public GameObject lFist;
@@ -18,11 +19,17 @@ public class BossMechanics : MonoBehaviour
 
     public float windUpSpeed = 1f;
     public float punchDelay = 3f;
-    public float punchThrowSpeed = 8f;
+    public float punchThrowSpeed = -8f;
 
     public bool isPunching = false;
 
-    public bool enteredLane = false;
+    public bool enteredLeftLane = false;
+
+    //to check if punch is working correctly
+    public bool forward = false;
+    public bool back = false;
+    public bool done = false;
+
 
     // private float current;
 
@@ -36,69 +43,132 @@ public class BossMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (isSpawned && !isDead)
         {
             if (player.transform.position == lLane.transform.position)
             {
-                enteredLane = true;
+                enteredLeftLane = true;
             }
-            if (enteredLane)
+            if (enteredLeftLane)
             {
                 StartCoroutine(LeftFistPunch());
             }
 
         }
-
     }
+
+
 
     IEnumerator LeftFistPunch()
     {
         //int posCheck = 0;
+        Vector3 fistOGPosition = lFist.transform.position;
         isPunching = true;
-        bool forward = false;
-        bool back = false;
-        while (lFist.transform.position.z < 1 && lFist.transform.position.z! < 0 && !forward)
-        {
-            lFist.transform.Translate(Vector3.back * windUpSpeed * Time.fixedDeltaTime);
-            //posCheck++;
-            forward = true;
-            yield return new WaitForSeconds(punchDelay);
-        }
-        while (lFist.transform.position.z > lLane.transform.position.z && !back)
-        {
-            lFist.transform.Translate(Vector3.back * punchThrowSpeed * Time.fixedDeltaTime);
-            yield return new WaitForSeconds(punchDelay);
-        }
-        while (lFist.transform.position.z < 0)
-        {
-            lFist.transform.Translate(Vector3.back * windUpSpeed * Time.fixedDeltaTime);
-            isPunching = false;
-            enteredLane = false;
-        }
-        //if (lFist.transform.position.z < 1 && lFist.transform.position.z! < 0)
+        //bool forward = false;
+        //bool back = false;
+
+
+
+
+
+        //while (lFist.transform.position.z < 1 && lFist.transform.position.z! < 0 && !forward)
         //{
-
         //    lFist.transform.Translate(Vector3.back * windUpSpeed * Time.fixedDeltaTime);
+        //    //lFist.transform.position = Vector3.MoveTowards(lFist.transform.position, new Vector3(lFist.transform.position.x, lFist.transform.position.y, lFist.transform.position.z +1), windUpSpeed*Time.deltaTime);
         //    //posCheck++;
+        //    forward = true;
         //    yield return new WaitForSeconds(punchDelay);
-
-
         //}
-        //if (lFist.transform.position.z > lLane.transform.position.z)
+        //while (lFist.transform.position.z > lLane.transform.position.z && !back)
         //{
         //    lFist.transform.Translate(Vector3.back * punchThrowSpeed * Time.fixedDeltaTime);
         //    yield return new WaitForSeconds(punchDelay);
-
-
         //}
-        //if (lFist.transform.position.z < 0)
+        //while (lFist.transform.position.z < 0)
         //{
         //    lFist.transform.Translate(Vector3.back * windUpSpeed * Time.fixedDeltaTime);
         //    isPunching = false;
+        //    enteredLane = false;
         //}
 
+        //while (lFist.transform.position.z < 1 && lFist.transform.position.z! < 0 && !forward)
+        //{
+        //    lFist.transform.position += Vector3.back * windUpSpeed * Time.fixedDeltaTime;
+        //    yield return new WaitForSeconds(punchDelay);
+        //    if (lFist.transform.position.z >=1)
+        //    {
+        //        forward = true;
+        //    }
+        //}
+        //while ( lFist.transform.position.z > lLane.transform.position.z && !back)
+        //{
+        //    lFist.transform.position += Vector3.forward * punchThrowSpeed * Time.fixedDeltaTime;
+        //    yield return new WaitForSeconds(punchDelay);
+        //    if (lFist.transform.position.z <= lLane.transform.position.z)
+        //    {
+        //        back = true;
+        //    }
+        //}
+        //while (lFist.transform.position.z < 0)
+        //{
+        //    lFist.transform.position += Vector3.back * windUpSpeed * Time.fixedDeltaTime;
+
+        //}
+
+
+
+        if (lFist.transform.position.z < 1 && !back)
+        {
+
+            lFist.transform.Translate(Vector3.back * windUpSpeed * Time.deltaTime);
+            //posCheck++;
+            print("First");
+            yield return new WaitForSeconds(punchDelay);
+
+
+
+            if (lFist.transform.position.z > 1f)
+            {
+                back = true;
+            }
+
+        }
+
+        if (lFist.transform.position.z > lLane.transform.position.z && !forward)
+        {
+            back = true;
+            lFist.transform.Translate(Vector3.back * punchThrowSpeed * Time.deltaTime);
+            print("Second");
+            yield return new WaitForSeconds(punchDelay);
+
+            if (lFist.transform.position.z <= -3.9)
+            {
+                forward = true;
+
+            }
+
+        }
+        if (lFist.transform.position.z <= bossMainBody.transform.position.z)
+        {
+
+            forward = true;
+            yield return new WaitForSeconds(punchDelay);
+            lFist.transform.Translate(Vector3.back * windUpSpeed * Time.deltaTime);
+            print("Third\n" + lFist.transform.position.z);
+            if (lFist.transform.position.z >= bossMainBody.transform.position.z)
+            {
+
+                isPunching = false;
+                enteredLeftLane = false;
+                back = false;
+                forward = false;
+
+            }
+        }
+
         //current = Mathf.MoveTowards(current, 1, punchThrowSpeed * Time.deltaTime);
-        //lFist.transform.position = Vector3.Lerp(Vector3.zero, new Vector3(0,0,1), current);
+        //lFist.transform.position = Vector3.Lerp(Vector3.zero, new Vector3(0, 0, 1), current);
         //yield return new WaitForSeconds(punchDelay);
 
 

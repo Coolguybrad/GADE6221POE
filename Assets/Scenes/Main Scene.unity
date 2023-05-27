@@ -2352,6 +2352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d7f5db2dd8643468101c1ba9b43625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossMainBody: {fileID: 1890438425}
   rFist: {fileID: 2092522447}
   rFistHP: 10
   lFist: {fileID: 34851875}
@@ -2365,6 +2366,11 @@ MonoBehaviour:
   windUpSpeed: -1
   punchDelay: 3
   punchThrowSpeed: 8
+  isPunching: 0
+  enteredLeftLane: 0
+  forward: 0
+  back: 0
+  done: 0
 --- !u!1 &1937619422
 GameObject:
   m_ObjectHideFlags: 0
