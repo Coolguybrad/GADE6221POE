@@ -2363,11 +2363,12 @@ MonoBehaviour:
   lLane: {fileID: 1667917008}
   rLane: {fileID: 1973458459}
   player: {fileID: 1937619422}
-  windUpSpeed: -1
+  windUpSpeed: -2
   punchDelay: 3
   punchThrowSpeed: 8
   isPunching: 0
   enteredLeftLane: 0
+  enteredRightLane: 0
   forward: 0
   back: 0
   done: 0

@@ -17,13 +17,14 @@ public class BossMechanics : MonoBehaviour
     public GameObject rLane;
     public GameObject player;
 
-    public float windUpSpeed = 1f;
+    public float windUpSpeed = 6f;
     public float punchDelay = 3f;
     public float punchThrowSpeed = -8f;
 
     public bool isPunching = false;
 
     public bool enteredLeftLane = false;
+    public bool enteredRightLane = false;
 
     //to check if punch is working correctly
     public bool forward = false;
@@ -37,26 +38,42 @@ public class BossMechanics : MonoBehaviour
 
     void Start()
     {
-
+        lFist.transform.SetParent(bossMainBody.transform, true);
+        rFist.transform.SetParent(bossMainBody.transform, true);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-
         if (isSpawned && !isDead)
         {
             if (player.transform.position == lLane.transform.position)
             {
                 enteredLeftLane = true;
             }
+            else if (player.transform.position == rLane.transform.position)
+            {
+                enteredRightLane = true;
+            }
             if (enteredLeftLane)
             {
                 StartCoroutine(LeftFistPunch());
             }
+            else if (enteredRightLane)
+            {
+
+            }
 
         }
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        
+    }
+
+    
 
 
 
@@ -121,7 +138,7 @@ public class BossMechanics : MonoBehaviour
         if (lFist.transform.position.z < 1 && !back)
         {
 
-            lFist.transform.Translate(Vector3.back * windUpSpeed * Time.deltaTime);
+            lFist.transform.Translate(Vector3.back * windUpSpeed * Time.fixedDeltaTime);
             //posCheck++;
             print("First");
             yield return new WaitForSeconds(punchDelay);
@@ -138,7 +155,7 @@ public class BossMechanics : MonoBehaviour
         if (lFist.transform.position.z > lLane.transform.position.z && !forward)
         {
             back = true;
-            lFist.transform.Translate(Vector3.back * punchThrowSpeed * Time.deltaTime);
+            lFist.transform.Translate(Vector3.back * punchThrowSpeed * Time.fixedDeltaTime);
             print("Second");
             yield return new WaitForSeconds(punchDelay);
 
@@ -154,7 +171,7 @@ public class BossMechanics : MonoBehaviour
 
             forward = true;
             yield return new WaitForSeconds(punchDelay);
-            lFist.transform.Translate(Vector3.back * windUpSpeed * Time.deltaTime);
+            lFist.transform.Translate(Vector3.back * windUpSpeed * Time.fixedDeltaTime);
             print("Third\n" + lFist.transform.position.z);
             if (lFist.transform.position.z >= bossMainBody.transform.position.z)
             {
