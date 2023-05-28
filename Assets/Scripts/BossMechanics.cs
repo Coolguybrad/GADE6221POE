@@ -5,31 +5,32 @@ public class BossMechanics : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject bossMainBody;
-    public GameObject rFist;
-    public int rFistHP = 10;
     public GameObject lFist;
     public int lFistHP = 10;
     public bool isDead = false;
     public float moveTo = 1;
     public bool isSpawned = false;
 
+    public GameObject[] obstacleArr;
+
     public GameObject lLane;
     public GameObject rLane;
     public GameObject player;
+    public GameObject spawner;
+
+    public float obstacleSpawnTime = 1;
 
     public float windUpSpeed = 6f;
     public float punchDelay = 3f;
     public float punchThrowSpeed = -8f;
 
     public bool isPunching = false;
-
     public bool enteredLeftLane = false;
-    public bool enteredRightLane = false;
-
-    //to check if punch is working correctly
     public bool forward = false;
     public bool back = false;
-    public bool done = false;
+
+    //to check if punch is working correctly
+
 
 
     // private float current;
@@ -38,8 +39,9 @@ public class BossMechanics : MonoBehaviour
 
     void Start()
     {
+        //trying what ever I can to get coordinates to match up
         lFist.transform.SetParent(bossMainBody.transform, true);
-        rFist.transform.SetParent(bossMainBody.transform, true);
+        Invoke("rightFistSpawner", obstacleSpawnTime);
     }
 
     private void FixedUpdate()
@@ -50,18 +52,14 @@ public class BossMechanics : MonoBehaviour
             {
                 enteredLeftLane = true;
             }
-            else if (player.transform.position == rLane.transform.position)
-            {
-                enteredRightLane = true;
-            }
+
             if (enteredLeftLane)
             {
                 StartCoroutine(LeftFistPunch());
             }
-            else if (enteredRightLane)
-            {
 
-            }
+
+
 
         }
     }
@@ -69,21 +67,20 @@ public class BossMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (lFistHP < 0)
+        {
+            lFist.SetActive(false);
+            isDead = true;
+        }
         
     }
-
-    
-
-
 
     IEnumerator LeftFistPunch()
     {
         //int posCheck = 0;
         Vector3 fistOGPosition = lFist.transform.position;
         isPunching = true;
-        //bool forward = false;
-        //bool back = false;
+        
 
 
 
@@ -191,4 +188,10 @@ public class BossMechanics : MonoBehaviour
 
 
     }
+
+    
+
+
+
+
 }

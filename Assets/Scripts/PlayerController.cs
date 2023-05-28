@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private int lane = 1; //0 = left lane 1 = middle 2 = right
+    public int lane = 1; //0 = left lane 1 = middle 2 = right
 
     //Attempt 1 Lerping
     //public float fistMoveDist = 20f;
@@ -113,25 +113,16 @@ public class PlayerController : MonoBehaviour
             checkLane(); //calls checkLane
         }
 
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    //Attempt 1 Lerping
-        //    //fistStartPos = this.gameObject.transform.GetChild(1).position;
-        //    //fistEndPos = new Vector3(this.gameObject.transform.GetChild(1).position.x + fistMoveDist, this.gameObject.transform.GetChild(1).position.y, this.gameObject.transform.GetChild(1).position.z);
-        //    //elapsedTime += Time.deltaTime;
-        //    //float percentageDone = elapsedTime/duration;
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            StartCoroutine(punchLeft());
 
-        //    //this.gameObject.transform.GetChild(1).transform.position = Vector3.Lerp(fistStartPos, fistEndPos, percentageDone);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            StartCoroutine(punchRight());
 
-        //    //float t = (Time.time - startTime) / punchDuration;
-        //    startPosition = this.gameObject.transform.GetChild(1).position;
-        //    float step = punchSpeed * Time.fixedDeltaTime;
-        //    this.gameObject.transform.GetChild(1).transform.position = Vector3.MoveTowards(startPosition, endPosition, step);
-        //    //this.gameObject.transform.GetChild(1).transform.position = Vector3.Lerp(startPosition, rLane.transform.position, t);
-
-
-        //}
-
+        }
 
 
     }
@@ -180,6 +171,24 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.playAudio();
 
         }
+    }
+
+    IEnumerator punchLeft()
+    {
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        yield return new WaitForSeconds(5);
+
+    }
+
+    IEnumerator punchRight()
+    {
+        this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        yield return new WaitForSeconds(5);
+
     }
 
 

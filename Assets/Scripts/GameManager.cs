@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     private AudioManager aManager;
     public float obstacleSpawnTime = 1;
+    public float bossObstacleSpawnTime = 3;
     public GameObject boss;
     public int bossSpawnThreshhold = 20;
 
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public AudioSource _audio;
     public AudioClip _clip;
     public GameObject[] obstacleArr;
+    public GameObject[] bossSpawnerObstArr;
     public GameObject obstacleSpawnRight;
     public GameObject obstacleSpawnMiddle;
     public GameObject obstacleSpawnLeft;
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
         startY = boss.transform.position.y;
         //InvokeRepeating("spawnWave", obstacleSpawnTime, obstacleSpawnTime); //calls spawnWave method at the set intervals of obstacleSpawnTime
         Invoke("spawnWave", obstacleSpawnTime);
+        Invoke("bossSpawnWave", bossObstacleSpawnTime);
     }
 
 
@@ -112,11 +115,26 @@ public class GameManager : MonoBehaviour
         else if (Player.GetComponent<Score>().score >= bossSpawnThreshhold)
         {
             obstacleSpawnTime = 3;
+            int rndObstacle = Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
             Instantiate(obstacleArr[9], obstacleSpawnMiddle.transform);
+
         }
         Invoke("spawnWave", obstacleSpawnTime);
 
     }
+
+    private void bossSpawnWave()
+    {
+        if (boss.GetComponent<BossMechanics>().isSpawned)
+        {
+
+            int rndObstacle = Random.Range(0, bossSpawnerObstArr.Length); //chooses an obstacle from the array of obstacles
+            Instantiate(bossSpawnerObstArr[rndObstacle], obstacleSpawnRight.transform);
+
+        }
+        Invoke("bossSpawnWave", bossObstacleSpawnTime);
+    }
+
     // Update is called once per frame
     void Update()
     {

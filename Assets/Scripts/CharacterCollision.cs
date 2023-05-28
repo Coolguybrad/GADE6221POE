@@ -75,6 +75,27 @@ public class CharacterCollision : MonoBehaviour
             Destroy(other.gameObject); //destroys the pickup object
 
         }
+        else if (other.gameObject.tag == "Boss")
+        {
+            if (this.gameObject.GetComponent<PlayerController>().lane == 1)
+            {
+                other.gameObject.GetComponentInParent<BossMechanics>().lFistHP--;
+            }
+            else if (this.gameObject.GetComponent<PlayerController>().gotPickup)
+            {
+                if (this.gameObject.GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Shield)
+                {
+                    other.gameObject.GetComponentInParent<BossMechanics>().lFistHP -= 5;
+                    this.gameObject.GetComponent<PlayerController>().gotPickup = false; //removes the player's pickup
+                }
+            }
+            else
+            {
+                this.gameObject.transform.position = new Vector3(0f, -10f, 0f); //moves player under the map out of sight
+                this.gameObject.GetComponent<Rigidbody>().useGravity = false; //stops player unecessary falling when game should be over
+                Time.timeScale = 0; //Sets the game's time scale to zero effectively pausing the game
+            }
+        }
        
     }
 
@@ -103,5 +124,7 @@ public class CharacterCollision : MonoBehaviour
         this.gameObject.GetComponent<PlayerController>().currentPickup = Pickup.pickupType.Nothing;
         this.gameObject.GetComponent<PlayerController>().gotPickup = false;
     }
+
+    
 
 }
