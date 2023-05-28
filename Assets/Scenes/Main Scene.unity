@@ -1235,7 +1235,7 @@ MonoBehaviour:
   obstacleSpawnTime: 1
   bossObstacleSpawnTime: 3
   boss: {fileID: 1890438425}
-  bossSpawnThreshhold: 3
+  bossSpawnThreshhold: 10
   _audio: {fileID: 0}
   _clip: {fileID: 0}
   obstacleArr:
@@ -2586,7 +2586,7 @@ MonoBehaviour:
   player: {fileID: 1937619422}
   spawner: {fileID: 1036556930}
   obstacleSpawnTime: 1
-  windUpSpeed: -2
+  windUpSpeed: -5
   punchDelay: 3
   punchThrowSpeed: 16
   isPunching: 0
