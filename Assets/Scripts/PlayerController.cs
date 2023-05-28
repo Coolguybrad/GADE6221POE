@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumpHeight;
 
+    public Animator anim;
+
 
 
     public int lane = 1; //0 = left lane 1 = middle 2 = right
@@ -44,12 +46,13 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+
         //player.transform.position.Set(player.transform.position.x, lLane.transform.position.y, player.transform.position.z); 
         //startPosition = this.gameObject.transform.GetChild(1).position;
         //endPosition = startPosition + Vector3.right * punchDist;
         //startTime = Time.time;
         //endPosition = rLane.transform.position;
+
     }
 
 
@@ -143,6 +146,7 @@ public class PlayerController : MonoBehaviour
         if (rb.transform.position.y < 0.47f)//prevents player from jumping while in the air
         {
             rb.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);//puts an upward force on the player to make them jump
+            anim.Play("Jump");
         }
 
     }

@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
             }
             else  //checks if the game is not paused it pauses the game
             {
-                GameObject.Find("UI").GetComponent<UIInteraction>().txtControls.text = "Up arrow - jump\nDown arrow - fast fall\nLeft arrow - move left\nRight arrow - move right";
+                GameObject.Find("UI").GetComponent<UIInteraction>().txtControls.text = "Up arrow - jump\nDown arrow - fast fall\nLeft arrow - move left\nRight arrow - move right\n D - punch right\n A - punch left";
                 Time.timeScale = 0;
                 isPaused = true;
             }
