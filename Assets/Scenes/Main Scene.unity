@@ -3242,7 +3242,7 @@ GameObject:
   - component: {fileID: 2206852604990120345}
   m_Layer: 0
   m_Name: Icosphere
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3480,14 +3480,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3036846645459479905}
-  m_LocalRotation: {x: -0.6268994, y: -0.3271043, z: -0.32710433, w: 0.6268993}
-  m_LocalPosition: {x: -0.20758, y: 0.047412, z: -0.38926}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -0.1972123, y: 0.047412194, z: -0.39622247}
   m_LocalScale: {x: 61.383686, y: 43.034126, z: 117.021774}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 34851876}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -55.109}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
 --- !u!4 &2378351838016158859
 Transform:
   m_ObjectHideFlags: 0
@@ -3707,9 +3707,10 @@ GameObject:
   - component: {fileID: 2373745207325148302}
   - component: {fileID: 2237690879181582723}
   - component: {fileID: 6769209835506422680}
+  - component: {fileID: 6769209835506422681}
   m_Layer: 0
   m_Name: 'Right Hand '
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4078,7 +4079,7 @@ GameObject:
   - component: {fileID: 1910182323805638577}
   m_Layer: 0
   m_Name: 'Left Hand '
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5115,6 +5116,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6769209835506422681
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3036846645459479905}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.016921356, y: 0.017012803, z: 0.018372096}
+  m_Center: {x: 0.0004875524, y: -0.000027012138, z: 0.000813963}
 --- !u!4 &6788129380566018790
 Transform:
   m_ObjectHideFlags: 0
