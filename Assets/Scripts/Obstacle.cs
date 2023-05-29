@@ -8,7 +8,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField]
     public GameObject obstacle;
 
-
+    public bool isEnvironment = false;
 
     void Start()
     {
@@ -27,8 +27,16 @@ public class Obstacle : MonoBehaviour
         //{
         //    
         //}
-        if (obstacle.transform.position.z < -41f) //once the obstacle has passed -41 on the z axis
+        if (isEnvironment)
         {
+            if (obstacle.transform.position.z < -50f)
+            {
+                Destroy(obstacle);
+            }
+        }
+        else if (obstacle.transform.position.z < -41f) //once the obstacle has passed -41 on the z axis
+        {
+
             if (GameObject.Find("Player").GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Pointboost)
             {
                 GameObject.Find("Player").GetComponent<Score>().score++;//players score is increased

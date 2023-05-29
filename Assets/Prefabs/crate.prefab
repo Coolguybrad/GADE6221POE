@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   obstacle: {fileID: 2946873052515270797}
+  isEnvironment: 0
 --- !u!65 &506660060441383609
 BoxCollider:
   m_ObjectHideFlags: 0

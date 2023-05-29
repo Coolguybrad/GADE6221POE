@@ -19,6 +19,18 @@ public class GameManager : MonoBehaviour
     public GameObject obstacleSpawnMiddle;
     public GameObject obstacleSpawnLeft;
 
+    public GameObject floorTile;
+    public float floorSpawnTime = 0.05f;
+    public GameObject floorSpawner;
+
+    public float houseSpawnTimer = 1f;
+    public GameObject houseSpawnLeft;
+    public GameObject houseSpawnRight;
+    public GameObject houseLeft;
+    public GameObject houseRight;
+
+
+
     public float speed = 0.5f;
     public float distance = 1f;
     private float startY;
@@ -50,6 +62,8 @@ public class GameManager : MonoBehaviour
         //InvokeRepeating("spawnWave", obstacleSpawnTime, obstacleSpawnTime); //calls spawnWave method at the set intervals of obstacleSpawnTime
         Invoke("spawnWave", obstacleSpawnTime);
         Invoke("bossSpawnWave", bossObstacleSpawnTime);
+        InvokeRepeating("floorspawn", floorSpawnTime, floorSpawnTime);
+        InvokeRepeating("buildingSpawn", houseSpawnTimer, houseSpawnTimer);
     }
 
 
@@ -135,6 +149,16 @@ public class GameManager : MonoBehaviour
         Invoke("bossSpawnWave", bossObstacleSpawnTime);
     }
 
+    private void floorspawn() 
+    {
+        Instantiate(floorTile, floorSpawner.transform);
+    }
+
+    private void buildingSpawn() 
+    {
+        Instantiate(houseLeft, houseSpawnLeft.transform);
+        Instantiate(houseRight, houseSpawnRight.transform);
+    }
     // Update is called once per frame
     void Update()
     {
