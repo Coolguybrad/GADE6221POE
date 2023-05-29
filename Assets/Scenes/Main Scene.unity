@@ -1229,7 +1229,7 @@ MonoBehaviour:
   obstacleSpawnTime: 1
   bossObstacleSpawnTime: 3
   boss: {fileID: 1890438425}
-  bossSpawnThreshhold: 2
+  bossSpawnThreshhold: 50
   _audio: {fileID: 0}
   _clip: {fileID: 0}
   obstacleArr:
