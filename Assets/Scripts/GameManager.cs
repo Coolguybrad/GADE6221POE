@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,7 +53,19 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
         aManager = gameObject.GetComponent<AudioManager>();
+        
     }
+
+    public event Action onObjectPassing;
+    public void objectPassed() 
+    {
+        if (onObjectPassing != null)
+        {
+            onObjectPassing();
+        }
+    }
+
+    public event Action spawnBoss;
 
     private void Start()
     {
@@ -68,35 +81,14 @@ public class GameManager : MonoBehaviour
 
 
 
-    //IEnumerator spawnWave()
-    //{
-    //    int rndObstacle = Random.Range(0, obstacleArr.Length);
-    //    int rndSpawn = Random.Range(0,2);
-    //    if (rndSpawn == 0)
-    //    {
-    //        Instantiate(obstacleArr[rndObstacle], obstacleSpawnRight.transform);
-    //        yield return new WaitForSeconds(obstacleSpawnTime);
-    //    }
-    //    else if (rndSpawn == 1)
-    //    {
-    //        Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
-    //        yield return new WaitForSeconds(obstacleSpawnTime);
-    //    }
-    //    else
-    //    {
-    //        Instantiate(obstacleArr[rndObstacle], obstacleSpawnRight.transform);
-    //        yield return new WaitForSeconds(obstacleSpawnTime);
-    //    }
-
-    //}
 
     private void spawnWave()
     {
         if (Player.GetComponent<Score>().score < bossSpawnThreshhold || boss.GetComponent<BossMechanics>().isDead)
         {
             obstacleSpawnTime = 1;
-            int rndObstacle = Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
-            int rndSpawn = Random.Range(0, 3); //randomizes a lane for the obstacles to spawn in
+            int rndObstacle = UnityEngine.Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
+            int rndSpawn = UnityEngine.Random.Range(0, 3); //randomizes a lane for the obstacles to spawn in
 
             //Player.GetComponent<Score>().score;
             if (rndObstacle == 2 || rndObstacle == 4) //if the random obstacle is the long obstacle it will only spawn in the middle lane
@@ -129,7 +121,7 @@ public class GameManager : MonoBehaviour
         else if (Player.GetComponent<Score>().score >= bossSpawnThreshhold)
         {
             obstacleSpawnTime = 3;
-            int rndObstacle = Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
+            int rndObstacle = UnityEngine.Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
             Instantiate(obstacleArr[9], obstacleSpawnMiddle.transform);
 
         }
@@ -142,7 +134,7 @@ public class GameManager : MonoBehaviour
         if (boss.GetComponent<BossMechanics>().isSpawned)
         {
 
-            int rndObstacle = Random.Range(0, bossSpawnerObstArr.Length); //chooses an obstacle from the array of obstacles
+            int rndObstacle = UnityEngine.Random.Range(0, bossSpawnerObstArr.Length); //chooses an obstacle from the array of obstacles
             Instantiate(bossSpawnerObstArr[rndObstacle], obstacleSpawnRight.transform);
 
         }

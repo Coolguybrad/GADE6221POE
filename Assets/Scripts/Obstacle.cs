@@ -7,12 +7,19 @@ public class Obstacle : MonoBehaviour
     private float speed = 20f; //speed of the obstacle
     [SerializeField]
     public GameObject obstacle;
+    public GameObject player;
 
     public bool isEnvironment = false;
 
     void Start()
     {
+        player = GameObject.Find("Player");
+        GameManager.instance.onObjectPassing += onObjectPassing;
+    }
 
+    private void onObjectPassing() 
+    {
+        
     }
 
     // Update is called once per frame
@@ -37,15 +44,15 @@ public class Obstacle : MonoBehaviour
         else if (obstacle.transform.position.z < -41f) //once the obstacle has passed -41 on the z axis
         {
 
-            if (GameObject.Find("Player").GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Pointboost)
+            if (player.GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Pointboost)
             {
-                GameObject.Find("Player").GetComponent<Score>().score++;//players score is increased
-                GameObject.Find("Player").GetComponent<Score>().score++;
+                player.GetComponent<Score>().score++;//players score is increased
+                player.GetComponent<Score>().score++;
                 Destroy(obstacle); //obstacle is destroyed
             }
             else
             {
-                GameObject.Find("Player").GetComponent<Score>().score++; //players score is increased
+                player.GetComponent<Score>().score++; //players score is increased
                 Destroy(obstacle); //obstacle is destroyed
             }
 

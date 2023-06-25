@@ -20,7 +20,7 @@ public class BossMechanics : MonoBehaviour
 
     public float obstacleSpawnTime = 1;
 
-    public float windUpSpeed = 6f;
+    public float windUpSpeed = 3f;
     public float punchDelay = 3f;
     public float punchThrowSpeed = -8f;
 
@@ -28,6 +28,9 @@ public class BossMechanics : MonoBehaviour
     public bool enteredLeftLane = false;
     public bool forward = false;
     public bool back = false;
+
+    private Vector3 startPosition;
+    private Vector3 originalPosition;
 
     //to check if punch is working correctly
 
@@ -39,6 +42,7 @@ public class BossMechanics : MonoBehaviour
 
     void Start()
     {
+
         //trying what ever I can to get coordinates to match up
         lFist.transform.SetParent(bossMainBody.transform, true);
         Invoke("rightFistSpawner", obstacleSpawnTime);
@@ -72,7 +76,7 @@ public class BossMechanics : MonoBehaviour
             lFist.SetActive(false);
             isDead = true;
         }
-        
+
     }
 
     IEnumerator LeftFistPunch()
@@ -80,7 +84,9 @@ public class BossMechanics : MonoBehaviour
         //int posCheck = 0;
         Vector3 fistOGPosition = lFist.transform.position;
         isPunching = true;
-        
+        startPosition = fistOGPosition;
+        originalPosition = startPosition;
+        Vector3 currentpos;
 
 
 
@@ -132,6 +138,13 @@ public class BossMechanics : MonoBehaviour
 
 
 
+
+
+
+
+
+
+        //WORKING KINDA
         if (lFist.transform.position.z < 1 && !back)
         {
 
@@ -181,6 +194,10 @@ public class BossMechanics : MonoBehaviour
             }
         }
 
+
+
+
+
         //current = Mathf.MoveTowards(current, 1, punchThrowSpeed * Time.deltaTime);
         //lFist.transform.position = Vector3.Lerp(Vector3.zero, new Vector3(0, 0, 1), current);
         //yield return new WaitForSeconds(punchDelay);
@@ -189,7 +206,7 @@ public class BossMechanics : MonoBehaviour
 
     }
 
-    
+
 
 
 
