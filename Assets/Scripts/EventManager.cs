@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class Score : MonoBehaviour
+public class EventManager : MonoBehaviour
 {
-
-    public int score = 0; //holds score value
-    public int levelsBeat = 0;
-    // Start is called before the first frame update
+    public event EventHandler onObjectPassed;
     void Start()
     {
         

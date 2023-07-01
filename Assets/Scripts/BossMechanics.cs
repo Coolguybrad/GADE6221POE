@@ -42,10 +42,30 @@ public class BossMechanics : MonoBehaviour
 
     void Start()
     {
-
+        GameManager.instance.onBossThresholdPassing += spawnBoss;
         //trying what ever I can to get coordinates to match up
         lFist.transform.SetParent(bossMainBody.transform, true);
         Invoke("rightFistSpawner", obstacleSpawnTime);
+    }
+
+    private void spawnBoss()
+    {
+        if (GameManager.instance.level > 0)
+        {
+            if (this.transform.position.y < 1)
+            {
+
+                this.transform.Translate(Vector3.up * 0.5f * Time.fixedDeltaTime);
+
+                //boss.transform.position = new Vector3(transform.position.x, startY + Mathf.PingPong(Time.time * speed, distance), transform.position.z);
+
+            }
+            else
+            {
+                this.GetComponent<BossMechanics>().isSpawned = true;
+            }
+        }
+
     }
 
     private void FixedUpdate()
@@ -74,7 +94,18 @@ public class BossMechanics : MonoBehaviour
         if (lFistHP < 0)
         {
             lFist.SetActive(false);
+            if (player.GetComponent<Score>().levelsBeat == 0)
+            {
+                GameManager.instance.level = 2;
+            }
+            else
+            {
+                GameManager.instance.level = Random.Range(1,2);
+            }
             isDead = true;
+            player.GetComponent<Score>().levelsBeat++;
+            lFistHP = 5;
+            lFist.SetActive(true);
         }
 
     }

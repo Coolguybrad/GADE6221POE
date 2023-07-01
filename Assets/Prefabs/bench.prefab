@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   obstacle: {fileID: 2599210845388046991}
+  player: {fileID: 0}
   isEnvironment: 0
 --- !u!65 &3382121307553529333
 BoxCollider:
@@ -143,5 +144,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.596945, y: 1.8977183, z: 2.0904255}
-  m_Center: {x: -0.1292016, y: 0.44885927, z: 0.15494466}
+  m_Size: {x: 7.596945, y: 1.8977183, z: 1.7082431}
+  m_Center: {x: -0.1292016, y: 0.44885927, z: 0.34603584}

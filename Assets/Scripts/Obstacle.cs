@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
@@ -9,18 +10,25 @@ public class Obstacle : MonoBehaviour
     public GameObject obstacle;
     public GameObject player;
 
+
     public bool isEnvironment = false;
 
     void Start()
     {
+        GameManager.instance.onObjectPassing += objectPassing;
         player = GameObject.Find("Player");
-        GameManager.instance.onObjectPassing += onObjectPassing;
-    }
-
-    private void onObjectPassing() 
-    {
         
     }
+
+
+
+    private void objectPassing() 
+    {
+        player.GetComponent<Score>().score += 1 * GameManager.instance.pointMultiplier;
+        Destroy(obstacle);
+    }
+
+
 
     // Update is called once per frame
     void Update()
@@ -30,13 +38,10 @@ public class Obstacle : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (obstacle.transform.position.z == -41.90001f)
-        //{
-        //    
-        //}
+        
         if (isEnvironment)
         {
-            if (obstacle.transform.position.z < -50f)
+            if (obstacle.transform.position.z < -60f)
             {
                 Destroy(obstacle);
             }
@@ -44,17 +49,26 @@ public class Obstacle : MonoBehaviour
         else if (obstacle.transform.position.z < -41f) //once the obstacle has passed -41 on the z axis
         {
 
-            if (player.GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Pointboost)
+            
+            if (!GameManager.instance.boss.GetComponent<BossMechanics>().isSpawned)
             {
-                player.GetComponent<Score>().score++;//players score is increased
-                player.GetComponent<Score>().score++;
-                Destroy(obstacle); //obstacle is destroyed
+                GameManager.instance.bossSpawnPoints++;
             }
-            else
-            {
-                player.GetComponent<Score>().score++; //players score is increased
-                Destroy(obstacle); //obstacle is destroyed
-            }
+            player.GetComponent<Score>().score += 1 * GameManager.instance.pointMultiplier;
+            Destroy(obstacle);
+
+
+            //if (player.GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Pointboost)
+            //{
+            //    player.GetComponent<Score>().score++;//players score is increased
+            //    player.GetComponent<Score>().score++;
+            //    Destroy(obstacle); //obstacle is destroyed
+            //}
+            //else
+            //{
+            //    player.GetComponent<Score>().score++; //players score is increased
+            //    Destroy(obstacle); //obstacle is destroyed
+            //}
 
         }
         obstacle.transform.Translate(Vector3.back * speed * Time.fixedDeltaTime);//moves the obstacles in the players z direction at the speed set above

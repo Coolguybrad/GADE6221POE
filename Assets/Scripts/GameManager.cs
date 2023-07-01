@@ -1,8 +1,10 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public bool Cheats = false;
+    
     // Start is called before the first frame update
     public static GameManager instance;
     private AudioManager aManager;
@@ -10,6 +12,12 @@ public class GameManager : MonoBehaviour
     public float bossObstacleSpawnTime = 3;
     public GameObject boss;
     public int bossSpawnThreshhold = 20;
+
+    public int level = 1;
+    public int nextLevel = 2;
+
+    public int bossSpawnPoints = 0;
+    public int pointMultiplier = 1;
 
 
     public AudioSource _audio;
@@ -30,6 +38,8 @@ public class GameManager : MonoBehaviour
     public GameObject houseLeft;
     public GameObject houseRight;
 
+    public GameObject dungeonEnvironment;
+    public GameObject dungeonSpawner;
 
 
     public float speed = 0.5f;
@@ -53,19 +63,29 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
         aManager = gameObject.GetComponent<AudioManager>();
-        
+
     }
 
+    public event Action onBossThresholdPassing;
     public event Action onObjectPassing;
-    public void objectPassed() 
+
+    public void ObjectPassing() 
     {
         if (onObjectPassing != null)
         {
             onObjectPassing();
         }
     }
+    public void BossThreshHoldPass() 
+    {
+        if (onBossThresholdPassing != null)
+        {
+            onBossThresholdPassing();
+        }
+    }
 
-    public event Action spawnBoss;
+
+    //public event Action spawnBoss;
 
     private void Start()
     {
@@ -75,8 +95,8 @@ public class GameManager : MonoBehaviour
         //InvokeRepeating("spawnWave", obstacleSpawnTime, obstacleSpawnTime); //calls spawnWave method at the set intervals of obstacleSpawnTime
         Invoke("spawnWave", obstacleSpawnTime);
         Invoke("bossSpawnWave", bossObstacleSpawnTime);
-        InvokeRepeating("floorspawn", floorSpawnTime, floorSpawnTime);
-        InvokeRepeating("buildingSpawn", houseSpawnTimer, houseSpawnTimer);
+        Invoke("floorspawn", floorSpawnTime);
+        Invoke("buildingSpawn", houseSpawnTimer);
     }
 
 
@@ -141,44 +161,62 @@ public class GameManager : MonoBehaviour
         Invoke("bossSpawnWave", bossObstacleSpawnTime);
     }
 
-    private void floorspawn() 
+    private void floorspawn()
     {
         Instantiate(floorTile, floorSpawner.transform);
+        Invoke("floorspawn", floorSpawnTime);
     }
 
-    private void buildingSpawn() 
+    private void buildingSpawn()
     {
-        Instantiate(houseLeft, houseSpawnLeft.transform);
-        Instantiate(houseRight, houseSpawnRight.transform);
+        if (level == 1)
+        {
+            Instantiate(houseLeft, houseSpawnLeft.transform);
+            Instantiate(houseRight, houseSpawnRight.transform);
+        }
+        else
+        {
+            Instantiate(dungeonEnvironment, dungeonSpawner.transform);
+        }
+
+
+        Invoke("buildingSpawn", houseSpawnTimer);
     }
     // Update is called once per frame
     void Update()
     {
-        if (!boss.GetComponent<BossMechanics>().isSpawned && Player.GetComponent<Score>().score > bossSpawnThreshhold)
+        if (Cheats)
         {
-            if (boss.transform.position.y < 1)
-            {
-                boss.transform.Translate(Vector3.up * speed * Time.fixedDeltaTime);
+            Player.GetComponent<Rigidbody>().useGravity = false;
+            Player.GetComponent<CapsuleCollider>().enabled = false;
+            
+        }
 
-                //boss.transform.position = new Vector3(transform.position.x, startY + Mathf.PingPong(Time.time * speed, distance), transform.position.z);
+        if (Player.GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Pointboost)
+        {
+            pointMultiplier = 2;
+        }
+        else
+        {
+            pointMultiplier = 1;
+        }
 
-            }
-            else
-            {
-                boss.GetComponent<BossMechanics>().isSpawned = true;
-            }
-
+        if (!boss.GetComponent<BossMechanics>().isSpawned && instance.bossSpawnPoints > bossSpawnThreshhold)
+        {
+            BossThreshHoldPass();
         }
 
         if (boss.GetComponent<BossMechanics>().isDead)
         {
             if (boss.transform.position.y > -9)
             {
-                boss.transform.Translate(Vector3.up * -speed * Time.fixedDeltaTime);
+                boss.transform.Translate(Vector3.up * (-speed*2) * Time.fixedDeltaTime);
             }
             else
             {
+                boss.GetComponent<BossMechanics>().isDead = false;
                 boss.GetComponent<BossMechanics>().isSpawned = false;
+                instance.bossSpawnPoints = 0;
             }
 
         }
