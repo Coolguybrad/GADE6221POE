@@ -32,6 +32,9 @@ public class BossMechanics : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 originalPosition;
 
+
+
+
     //to check if punch is working correctly
 
 
@@ -50,12 +53,12 @@ public class BossMechanics : MonoBehaviour
 
     private void spawnBoss()
     {
-        if (GameManager.instance.level > 0)
+        if (GameManager.instance.level == 1)
         {
             if (this.transform.position.y < 1)
             {
 
-                this.transform.Translate(Vector3.up * 0.5f * Time.fixedDeltaTime);
+                this.transform.Translate(Vector3.up * 1f * Time.fixedDeltaTime);
 
                 //boss.transform.position = new Vector3(transform.position.x, startY + Mathf.PingPong(Time.time * speed, distance), transform.position.z);
 
@@ -66,6 +69,9 @@ public class BossMechanics : MonoBehaviour
             }
         }
 
+
+
+
     }
 
     private void FixedUpdate()
@@ -74,7 +80,11 @@ public class BossMechanics : MonoBehaviour
         {
             if (player.transform.position == lLane.transform.position)
             {
-                enteredLeftLane = true;
+                if (!isPunching)
+                {
+                    enteredLeftLane = true;
+                }
+
             }
 
             if (enteredLeftLane)
@@ -94,18 +104,19 @@ public class BossMechanics : MonoBehaviour
         if (lFistHP < 0)
         {
             lFist.SetActive(false);
-            if (player.GetComponent<Score>().levelsBeat == 0)
+            if (player.GetComponent<Score>().levelsBeat <= 1)
             {
                 GameManager.instance.level = 2;
             }
             else
             {
-                GameManager.instance.level = Random.Range(1,2);
+                GameManager.instance.level = Random.Range(1, 3);
             }
             isDead = true;
+            lFistHP = 10;
             player.GetComponent<Score>().levelsBeat++;
-            lFistHP = 5;
-            lFist.SetActive(true);
+
+
         }
 
     }
@@ -181,7 +192,7 @@ public class BossMechanics : MonoBehaviour
 
             lFist.transform.Translate(Vector3.back * windUpSpeed * Time.fixedDeltaTime);
             //posCheck++;
-            print("First");
+
             yield return new WaitForSeconds(punchDelay);
 
 
@@ -197,7 +208,7 @@ public class BossMechanics : MonoBehaviour
         {
             back = true;
             lFist.transform.Translate(Vector3.back * punchThrowSpeed * Time.fixedDeltaTime);
-            print("Second");
+
             yield return new WaitForSeconds(punchDelay);
 
             if (lFist.transform.position.z <= -3.9)
@@ -213,7 +224,7 @@ public class BossMechanics : MonoBehaviour
             forward = true;
             yield return new WaitForSeconds(punchDelay);
             lFist.transform.Translate(Vector3.back * windUpSpeed * Time.fixedDeltaTime);
-            print("Third\n" + lFist.transform.position.z);
+
             if (lFist.transform.position.z >= bossMainBody.transform.position.z)
             {
 

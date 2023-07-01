@@ -50,7 +50,7 @@ public class Obstacle : MonoBehaviour
         {
 
             
-            if (!GameManager.instance.boss.GetComponent<BossMechanics>().isSpawned)
+            if (!GameManager.instance.boss.GetComponent<BossMechanics>().isSpawned || !GameManager.instance.sGoblin.GetComponent<StiffGoblin>().spawned)
             {
                 GameManager.instance.bossSpawnPoints++;
             }

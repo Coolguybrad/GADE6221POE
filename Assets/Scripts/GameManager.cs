@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public bool Cheats = false;
-    
+
     // Start is called before the first frame update
     public static GameManager instance;
     private AudioManager aManager;
@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public float bossObstacleSpawnTime = 3;
     public GameObject boss;
     public int bossSpawnThreshhold = 20;
+    public GameObject sGoblin;
 
     public int level = 1;
     public int nextLevel = 2;
@@ -69,18 +70,21 @@ public class GameManager : MonoBehaviour
     public event Action onBossThresholdPassing;
     public event Action onObjectPassing;
 
-    public void ObjectPassing() 
+    public void ObjectPassing()
     {
         if (onObjectPassing != null)
         {
             onObjectPassing();
         }
     }
-    public void BossThreshHoldPass() 
+    public void BossThreshHoldPass()
     {
         if (onBossThresholdPassing != null)
         {
+
             onBossThresholdPassing();
+
+
         }
     }
 
@@ -104,7 +108,7 @@ public class GameManager : MonoBehaviour
 
     private void spawnWave()
     {
-        if (Player.GetComponent<Score>().score < bossSpawnThreshhold || boss.GetComponent<BossMechanics>().isDead)
+        if (bossSpawnPoints < bossSpawnThreshhold || boss.GetComponent<BossMechanics>().isDead)
         {
             obstacleSpawnTime = 1;
             int rndObstacle = UnityEngine.Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
@@ -138,10 +142,9 @@ public class GameManager : MonoBehaviour
 
             }
         }
-        else if (Player.GetComponent<Score>().score >= bossSpawnThreshhold)
+        else if (bossSpawnPoints >= bossSpawnThreshhold)
         {
             obstacleSpawnTime = 3;
-            int rndObstacle = UnityEngine.Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
             Instantiate(obstacleArr[9], obstacleSpawnMiddle.transform);
 
         }
@@ -189,7 +192,7 @@ public class GameManager : MonoBehaviour
         {
             Player.GetComponent<Rigidbody>().useGravity = false;
             Player.GetComponent<CapsuleCollider>().enabled = false;
-            
+
         }
 
         if (Player.GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Pointboost)
@@ -201,21 +204,34 @@ public class GameManager : MonoBehaviour
             pointMultiplier = 1;
         }
 
-        if (!boss.GetComponent<BossMechanics>().isSpawned && instance.bossSpawnPoints > bossSpawnThreshhold)
+        if (level == 1)
         {
-            BossThreshHoldPass();
+            if (!boss.GetComponent<BossMechanics>().isSpawned && instance.bossSpawnPoints > bossSpawnThreshhold)
+            {
+                BossThreshHoldPass();
+            }
         }
+        if (level == 2)
+        {
+            if (!sGoblin.GetComponent<StiffGoblin>().spawned && instance.bossSpawnPoints > bossSpawnThreshhold)
+            {
+                BossThreshHoldPass();
+            }
+        }
+
+
 
         if (boss.GetComponent<BossMechanics>().isDead)
         {
-            if (boss.transform.position.y > -9)
+            if (boss.transform.position.y > -5.3)
             {
-                boss.transform.Translate(Vector3.up * (-speed*2) * Time.fixedDeltaTime);
+                boss.transform.Translate(Vector3.up * (-speed * 2) * Time.fixedDeltaTime);
             }
             else
             {
                 boss.GetComponent<BossMechanics>().isDead = false;
                 boss.GetComponent<BossMechanics>().isSpawned = false;
+                boss.GetComponent<BossMechanics>().lFist.SetActive(true);
                 instance.bossSpawnPoints = 0;
             }
 

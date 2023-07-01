@@ -8,6 +8,7 @@ TagManager:
   - Destroyer
   - Pickup
   - Boss
+  - goblin
   layers:
   - Default
   - TransparentFX

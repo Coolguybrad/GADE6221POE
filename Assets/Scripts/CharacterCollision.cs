@@ -49,6 +49,29 @@ public class CharacterCollision : MonoBehaviour
             
 
         }
+        else if (other.gameObject.tag == "goblin" && this.gameObject.GetComponent<PlayerController>().gotPickup)
+        {
+            if (this.gameObject.GetComponent<PlayerController>().currentPickup == Pickup.pickupType.Shield)
+            {
+                other.gameObject.SetActive(false); //obstacle is destroyed
+                this.gameObject.GetComponent<PlayerController>().gotPickup = false; //removes the player's pickup
+            }
+            else
+            {
+                this.gameObject.transform.position = new Vector3(0f, -10f, 0f); //moves player under the map out of sight
+                this.gameObject.GetComponent<Rigidbody>().useGravity = false; //stops player unecessary falling when game should be over
+                Time.timeScale = 0; //Sets the game's time scale to zero effectively pausing the game
+            }
+        }
+        if (other.gameObject.tag == "goblin" && !this.gameObject.GetComponent<PlayerController>().gotPickup) //if the player collides with an obstacle and doesnt have a pickup (changed for future to specific pickup)
+        {
+            //GAME OVER
+            this.gameObject.transform.position = new Vector3(0f, -10f, 0f); //moves player under the map out of sight
+            this.gameObject.GetComponent<Rigidbody>().useGravity = false; //stops player unecessary falling when game should be over
+            Time.timeScale = 0; //Sets the game's time scale to zero effectively pausing the game
+
+
+        }
         else if (other.gameObject.tag == "Pickup") //if the player collides into a pickup
         {
 
