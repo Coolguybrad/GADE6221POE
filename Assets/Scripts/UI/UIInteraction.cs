@@ -43,6 +43,10 @@ public class UIInteraction : MonoBehaviour
             
             DataManager.instance.sendLeaderBoard(player.GetComponent<Score>().score);
             DataManager.instance.sendLevelLeaderBoard(player.GetComponent<Score>().levelsBeat);
+            btnQuit.gameObject.SetActive(true);
+            btnRestart.gameObject.SetActive(true);
+            btnMenu.gameObject.SetActive(true);
+            panel.gameObject.SetActive(true);
             txtFinalScore.text = "Final Score: " + player.GetComponent<Score>().score;
             count++;
             
