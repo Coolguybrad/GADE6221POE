@@ -17,6 +17,7 @@ public class StiffGoblin : MonoBehaviour
     public GameObject stiffGoblinMid;
     public GameObject stiffGoblinRight;
     public Vector3 ogPos;
+    public GameObject player;
     void Start()
     {
         ogPos = stiffGoblinMain.transform.position;
@@ -48,6 +49,7 @@ public class StiffGoblin : MonoBehaviour
                     stiffGoblinMid.transform.localPosition = new Vector3(stiffGoblinMid.transform.localPosition.x, -4f, stiffGoblinMid.transform.localPosition.z);
                     stiffGoblinRight.transform.localPosition = new Vector3(stiffGoblinRight.transform.localPosition.x, -4f, stiffGoblinRight.transform.localPosition.z);
                     GameManager.instance.bossSpawnPoints = 0;
+                    player.GetComponent<Score>().levelsBeat++;
                 }
             }
         }

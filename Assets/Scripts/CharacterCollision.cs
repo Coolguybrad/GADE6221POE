@@ -70,6 +70,8 @@ public class CharacterCollision : MonoBehaviour
             this.gameObject.GetComponent<Rigidbody>().useGravity = false; //stops player unecessary falling when game should be over
             Time.timeScale = 0; //Sets the game's time scale to zero effectively pausing the game
 
+           
+
 
         }
         else if (other.gameObject.tag == "Pickup") //if the player collides into a pickup

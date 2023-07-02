@@ -18,6 +18,7 @@ public class UIInteraction : MonoBehaviour
     public TMP_Text txtControls;
     public Button btnQuit;
     public Button btnMenu;
+    public int count = 0;
     void Start()
     {
         
@@ -36,9 +37,15 @@ public class UIInteraction : MonoBehaviour
     {
         txtScore.text = "Score: " + player.GetComponent<Score>().score; //updates the score on the onscreen gui
         //finalScore = player.GetComponent<Score>().score;
-        if (player.transform.position.y < -5f) //if the player is below 0 on the y position that means they have died and a final score will be displayed
+        if (player.transform.position.y < -5f && count == 0) //if the player is below 0 on the y position that means they have died and a final score will be displayed
         {
+            
+            DataManager.instance.sendLeaderBoard(player.GetComponent<Score>().score);
+            DataManager.instance.sendLeaderBoard(player.GetComponent<Score>().levelsBeat);
             txtFinalScore.text = "Final Score: " + player.GetComponent<Score>().score;
+            count++;
+            DataManager.instance.getLeaderBoard();
+            DataManager.instance.getLevelLeaderBoard();
         }
         //.text = "Score: " + player.GetComponent<Score>().score;
 

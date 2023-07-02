@@ -15,7 +15,7 @@ MonoBehaviour:
   DevAccountEmail: st10025342@vgconnect.edu.za
   DevAccountToken: hymnc7hs451pd71onin3gj1absgus7wopkyaowwyhzcfscizzwqczmmf9uaru6muhqrbf75xxshuoqfwno66yrqu1jmsgpr81m8ds4am6t8xdutmdikncxxmrfn97aeioz3f556nbbdz5tg4ymg9yfgu13gfambu9uqzpebrfoy4b6cehbhdf86gs17ktg4fh5cqd9ag
   AadAuthorization: 
-  SelectedStudio: 
+  SelectedStudio: My Game Studio
   SdkPath: Assets/PlayFabSDK
   EdExPath: 
   LocalCloudScriptPath: 
