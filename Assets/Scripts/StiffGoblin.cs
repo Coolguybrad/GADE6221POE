@@ -94,6 +94,8 @@ public class StiffGoblin : MonoBehaviour
         stiffGoblinMid.transform.GetChild(0).gameObject.SetActive(false);
         stiffGoblinRight.transform.GetChild(0).gameObject.SetActive(false);
 
+        yield return new WaitForSeconds(3);
+
     }
 
     private void attack()

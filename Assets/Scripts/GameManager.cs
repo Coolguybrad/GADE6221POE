@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public int bossSpawnPoints = 0;
     public int pointMultiplier = 1;
 
+    private GameObject UI;
 
     public AudioSource _audio;
     public AudioClip _clip;
@@ -101,6 +102,7 @@ public class GameManager : MonoBehaviour
         Invoke("bossSpawnWave", bossObstacleSpawnTime);
         Invoke("floorspawn", floorSpawnTime);
         Invoke("buildingSpawn", houseSpawnTimer);
+        UI = GameObject.Find("UI");
     }
 
 
@@ -241,13 +243,16 @@ public class GameManager : MonoBehaviour
         {
             if (isPaused) //checks if the game is paused if it is it unpauses
             {
-                GameObject.Find("UI").GetComponent<UIInteraction>().txtControls.text = "";
+                UI.GetComponent<UIInteraction>().txtControls.text = "";
+                UI.GetComponent<UIInteraction>().btnMenu.gameObject.SetActive(false);
+                
                 Time.timeScale = 1;
                 isPaused = false;
             }
             else  //checks if the game is not paused it pauses the game
             {
-                GameObject.Find("UI").GetComponent<UIInteraction>().txtControls.text = "Up arrow - jump\nDown arrow - fast fall\nLeft arrow - move left\nRight arrow - move right\n D - punch right\n A - punch left";
+                UI.GetComponent<UIInteraction>().txtControls.text = "Up arrow - jump\nDown arrow - fast fall\nLeft arrow - move left\nRight arrow - move right\n D - punch right\n A - punch left";
+                UI.GetComponent<UIInteraction>().btnMenu.gameObject.SetActive(true);
                 Time.timeScale = 0;
                 isPaused = true;
             }

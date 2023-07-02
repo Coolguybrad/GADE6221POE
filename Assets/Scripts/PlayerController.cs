@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumpHeight;
 
+    public AudioSource punch;
     public Animator anim;
 
 
@@ -179,6 +180,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator punchLeft()
     {
+        punch.Play();
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -188,6 +190,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator punchRight()
     {
+        punch.Play();
         this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         this.gameObject.transform.GetChild(1).gameObject.SetActive(false);

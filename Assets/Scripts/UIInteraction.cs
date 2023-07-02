@@ -17,6 +17,7 @@ public class UIInteraction : MonoBehaviour
     public TMP_Text txtFinalScore;
     public TMP_Text txtControls;
     public Button btnQuit;
+    public Button btnMenu;
     void Start()
     {
         
@@ -24,8 +25,10 @@ public class UIInteraction : MonoBehaviour
 
     private void Awake()
     {
+        
         btnRestart.onClick.AddListener(restart); //whenever the restart button is pressed restart is called
         btnQuit.onClick.AddListener(close);
+        btnMenu.onClick.AddListener(openMenu);
     }
 
     // Update is called once per frame
@@ -43,6 +46,11 @@ public class UIInteraction : MonoBehaviour
     private void close() 
     {
         Application.Quit();
+    }
+
+    private void openMenu() 
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 
 
