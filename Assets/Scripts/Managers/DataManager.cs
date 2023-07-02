@@ -2,6 +2,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 
@@ -11,6 +12,7 @@ public class DataManager : MonoBehaviour
 
     public static DataManager instance;
     public PlayFabManager pfManager;
+    public TMP_Text leaderboard;
 
 
     // Start is called before the first frame update
@@ -90,19 +92,23 @@ public class DataManager : MonoBehaviour
 
     private void OnLeaderboardGet(GetLeaderboardResult result)
     {
+        leaderboard.text = "Rank\tID\t\t\t\tScore\n";
+        foreach (var item in result.Leaderboard)
+        {
+            leaderboard.text += item.Position+1 + "\t" + item.PlayFabId + "\t" + item.StatValue + "\n";
+        }
+    }
+
+    private void OnLevelLeaderboardGet(GetLeaderboardResult result)
+    {
+
         foreach (var item in result.Leaderboard)
         {
             Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
         }
     }
 
-    private void OnLevelLeaderboardGet(GetLeaderboardResult result)
-    {
-        foreach (var item in result.Leaderboard)
-        {
-            Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
-        }
-    }
+    
 }
 
 

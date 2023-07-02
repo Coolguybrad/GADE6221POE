@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -29,6 +30,9 @@ public class PlayFabManager : MonoBehaviour
     public TMP_Text message;
     public TMP_InputField emailIn;
     public TMP_InputField passIn;
+    public Canvas loginUI;
+    public Canvas mainUI;
+    
     public void btnRegister() 
     {
         if (passIn.text.Length < 6)
@@ -48,6 +52,7 @@ public class PlayFabManager : MonoBehaviour
     private void OnRegisterSuccess(RegisterPlayFabUserResult result) 
     {
         message.text = "Registered and Logged in";
+        StartCoroutine(switchUI());
     }
 
 
@@ -74,12 +79,21 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginSuccess(LoginResult result) 
     {
         message.text = "logged in";
+        StartCoroutine(switchUI());
+    }
+
+    IEnumerator switchUI() 
+    {
+        yield return new WaitForSeconds(1);
+        loginUI.gameObject.SetActive(false);
+        mainUI.gameObject.SetActive(true);
     }
 
     void Start()
     {
         
     }
+    
 
     // Update is called once per frame
     void Update()
