@@ -239,13 +239,16 @@ public class GameManager : MonoBehaviour
 
         }
         //StartCoroutine("spawnWave");
-        if (Input.GetKeyDown(KeyCode.Q)) //when q is pressed down the time scale is set to 0
+        if (Input.GetKeyDown(KeyCode.Escape)) //when q is pressed down the time scale is set to 0
         {
             if (isPaused) //checks if the game is paused if it is it unpauses
             {
                 UI.GetComponent<UIInteraction>().txtControls.text = "";
                 UI.GetComponent<UIInteraction>().btnMenu.gameObject.SetActive(false);
-                
+                UI.GetComponent<UIInteraction>().btnRestart.gameObject.SetActive(false);
+                UI.GetComponent<UIInteraction>().panel.SetActive(false);
+                UI.GetComponent<UIInteraction>().btnQuit.gameObject.SetActive(false);
+
                 Time.timeScale = 1;
                 isPaused = false;
             }
@@ -253,6 +256,9 @@ public class GameManager : MonoBehaviour
             {
                 UI.GetComponent<UIInteraction>().txtControls.text = "Up arrow - jump\nDown arrow - fast fall\nLeft arrow - move left\nRight arrow - move right\n D - punch right\n A - punch left";
                 UI.GetComponent<UIInteraction>().btnMenu.gameObject.SetActive(true);
+                UI.GetComponent<UIInteraction>().btnRestart.gameObject.SetActive(true);
+                UI.GetComponent<UIInteraction>().panel.SetActive(true);
+                UI.GetComponent<UIInteraction>().btnQuit.gameObject.SetActive(true);
                 Time.timeScale = 0;
                 isPaused = true;
             }

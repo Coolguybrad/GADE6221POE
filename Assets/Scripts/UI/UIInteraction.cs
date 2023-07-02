@@ -18,6 +18,7 @@ public class UIInteraction : MonoBehaviour
     public TMP_Text txtControls;
     public Button btnQuit;
     public Button btnMenu;
+    public GameObject panel;
     public int count = 0;
     void Start()
     {
@@ -41,11 +42,10 @@ public class UIInteraction : MonoBehaviour
         {
             
             DataManager.instance.sendLeaderBoard(player.GetComponent<Score>().score);
-            DataManager.instance.sendLeaderBoard(player.GetComponent<Score>().levelsBeat);
+            DataManager.instance.sendLevelLeaderBoard(player.GetComponent<Score>().levelsBeat);
             txtFinalScore.text = "Final Score: " + player.GetComponent<Score>().score;
             count++;
-            DataManager.instance.getLeaderBoard();
-            DataManager.instance.getLevelLeaderBoard();
+            
         }
         //.text = "Score: " + player.GetComponent<Score>().score;
 
@@ -57,6 +57,7 @@ public class UIInteraction : MonoBehaviour
 
     private void openMenu() 
     {
+        Menucheating.instance.gameObject.SetActive(true);
         SceneManager.LoadScene("Main Menu");
     }
 
