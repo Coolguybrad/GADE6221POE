@@ -125,7 +125,7 @@ public class DataManager : MonoBehaviour
         
         foreach (var item in result.Leaderboard)
         {
-            personalRank.text = "Your Rank: " + item.Position+1;
+            personalRank.text = "Your Rank: " + (item.Position+1);
             personalHighScore.text = "High Score: " + item.StatValue;
 
         }
