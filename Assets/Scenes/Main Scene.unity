@@ -1784,6 +1784,17 @@ MonoBehaviour:
   - {fileID: 7286280463748990648, guid: e9e3e2f828007ca4f958f69465acd7f9, type: 3}
   - {fileID: 2946873052515270797, guid: 0cd473cd1c984964c9bac8883af97cd0, type: 3}
   - {fileID: 8971863973319659849, guid: c0b6d8bc23653824d8895b211bbd1d10, type: 3}
+  sLevelObstacleArr:
+  - {fileID: 2946873052515270797, guid: 0cd473cd1c984964c9bac8883af97cd0, type: 3}
+  - {fileID: 2946873052515270797, guid: 0cd473cd1c984964c9bac8883af97cd0, type: 3}
+  - {fileID: 2946873052515270797, guid: 0cd473cd1c984964c9bac8883af97cd0, type: 3}
+  - {fileID: 5131663093087591935, guid: 013c376e3fb58144ea1eac909d3ec6df, type: 3}
+  - {fileID: 2946873052515270797, guid: 0cd473cd1c984964c9bac8883af97cd0, type: 3}
+  - {fileID: 5131663093087591935, guid: 013c376e3fb58144ea1eac909d3ec6df, type: 3}
+  - {fileID: 2946873052515270797, guid: 0cd473cd1c984964c9bac8883af97cd0, type: 3}
+  - {fileID: 5131663093087591935, guid: 013c376e3fb58144ea1eac909d3ec6df, type: 3}
+  - {fileID: 2946873052515270797, guid: 0cd473cd1c984964c9bac8883af97cd0, type: 3}
+  - {fileID: 5131663093087591935, guid: 013c376e3fb58144ea1eac909d3ec6df, type: 3}
   obstacleSpawnRight: {fileID: 1036556930}
   obstacleSpawnMiddle: {fileID: 838913440}
   obstacleSpawnLeft: {fileID: 1739652143}

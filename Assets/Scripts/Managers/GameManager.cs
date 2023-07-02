@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public AudioClip _clip;
     public GameObject[] obstacleArr;
     public GameObject[] bossSpawnerObstArr;
+    public GameObject[] sLevelObstacleArr;
     public GameObject obstacleSpawnRight;
     public GameObject obstacleSpawnMiddle;
     public GameObject obstacleSpawnLeft;
@@ -110,27 +111,27 @@ public class GameManager : MonoBehaviour
 
     private void spawnWave()
     {
-        if (bossSpawnPoints < bossSpawnThreshhold || boss.GetComponent<BossMechanics>().isDead)
+        if (level == 2)
         {
             obstacleSpawnTime = 1;
-            int rndObstacle = UnityEngine.Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
+            int rndObstacle = UnityEngine.Random.Range(0, sLevelObstacleArr.Length); //chooses an obstacle from the array of obstacles
             int rndSpawn = UnityEngine.Random.Range(0, 3); //randomizes a lane for the obstacles to spawn in
 
             //Player.GetComponent<Score>().score;
             if (rndObstacle == 2 || rndObstacle == 4) //if the random obstacle is the long obstacle it will only spawn in the middle lane
             {
-                Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
+                Instantiate(sLevelObstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
             }
             else if (rndSpawn == 0)//makes sure random obstacle spawns in left lane
             {
-                Instantiate(obstacleArr[rndObstacle], obstacleSpawnLeft.transform);
+                Instantiate(sLevelObstacleArr[rndObstacle], obstacleSpawnLeft.transform);
 
             }
             else if (rndSpawn == 1)//makes sure random obstacle spawns in middle lane
             {
 
 
-                Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
+                Instantiate(sLevelObstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
 
 
 
@@ -138,18 +139,58 @@ public class GameManager : MonoBehaviour
             else if (rndSpawn == 2)//makes sure random obstacle spawns in right lane
             {
 
-                Instantiate(obstacleArr[rndObstacle], obstacleSpawnRight.transform);
+                Instantiate(sLevelObstacleArr[rndObstacle], obstacleSpawnRight.transform);
 
 
 
             }
         }
-        else if (bossSpawnPoints >= bossSpawnThreshhold)
+        else if (bossSpawnPoints < bossSpawnThreshhold || boss.GetComponent<BossMechanics>().isDead)
+        {
+            if (level == 1)
+            {
+                obstacleSpawnTime = 1;
+                int rndObstacle = UnityEngine.Random.Range(0, obstacleArr.Length); //chooses an obstacle from the array of obstacles
+                int rndSpawn = UnityEngine.Random.Range(0, 3); //randomizes a lane for the obstacles to spawn in
+
+                //Player.GetComponent<Score>().score;
+                if (rndObstacle == 2 || rndObstacle == 4) //if the random obstacle is the long obstacle it will only spawn in the middle lane
+                {
+                    Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
+                }
+                else if (rndSpawn == 0)//makes sure random obstacle spawns in left lane
+                {
+                    Instantiate(obstacleArr[rndObstacle], obstacleSpawnLeft.transform);
+
+                }
+                else if (rndSpawn == 1)//makes sure random obstacle spawns in middle lane
+                {
+
+
+                    Instantiate(obstacleArr[rndObstacle], obstacleSpawnMiddle.transform);
+
+
+
+                }
+                else if (rndSpawn == 2)//makes sure random obstacle spawns in right lane
+                {
+
+                    Instantiate(obstacleArr[rndObstacle], obstacleSpawnRight.transform);
+
+
+
+                }
+            }
+
+
+        }
+        else if (bossSpawnPoints >= bossSpawnThreshhold && level != 2)
         {
             obstacleSpawnTime = 3;
             Instantiate(obstacleArr[9], obstacleSpawnMiddle.transform);
 
         }
+
         Invoke("spawnWave", obstacleSpawnTime);
 
     }
